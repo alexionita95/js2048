@@ -26,6 +26,14 @@ convertToColor(value)
 	return "#"+this.componentToHex(red)+this.componentToHex(green)+this.componentToHex(blue);
 } 
 
+getFont() {
+	var fontBase = 100,                 // selected default width for canvas
+    fontSize = 40;                     // default size for font
+    var ratio = fontSize / fontBase;   // calc ratio
+    var size = this.width * ratio;   // get font size based on current width
+    return (size|0) + 'px Arial'; // set font
+}
+
 render(){
 	var gap=5;
 	if(this.value===0)
@@ -40,11 +48,10 @@ render(){
 	//this.context.stroke();
 	if(this.value!==0)
 	{
-		this.context.font = "60px Arial";
+		this.context.font = this.getFont();
 		this.context.fillStyle = "white";
 		this.context.textAlign = "left";
 		var text_width = this.context.measureText(this.value).width;
-		var text_height= parseInt(this.context.font);
 		this.context.textBaseline="middle";
 		this.context.fillText(this.value, this.x + (this.width-text_width)/2, this.y+(this.height)/2);
 	}	
