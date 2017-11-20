@@ -1,7 +1,7 @@
 var game=new Game();
 window.onload = function(){game.init()};
-document.addEventListener('touchstart', handleTouchStart, false);        
-document.addEventListener('touchmove', handleTouchMove, false);
+document.addEventListener('touchstart', handleTouchStart, {passive: false});        
+document.addEventListener('touchmove', handleTouchMove, {passive: false});
 window.onresize=function(){game.update()}
 document.onkeydown = checkKey;
 
