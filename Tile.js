@@ -23,12 +23,16 @@ convertToColor(value)
 	var blue = colorStart+ Math.floor(colorRange * percentage);
 	var green = Math.floor(colorRange * (1-percentage)*1.5);
 	var red = Math.floor(colorRange * (1 - percentage)*0.5);
+	if(value>2048)
+	{
+		return "#000000";
+	}
 	return "#"+this.componentToHex(red)+this.componentToHex(green)+this.componentToHex(blue);
 } 
 
 getFont() {
 	var fontBase = 100,                 // selected default width for canvas
-    fontSize = 40;                     // default size for font
+    fontSize = 25;                     // default size for font
     var ratio = fontSize / fontBase;   // calc ratio
     var size = this.width * ratio;   // get font size based on current width
     return (size|0) + 'px Arial'; // set font
