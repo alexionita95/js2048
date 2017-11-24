@@ -83,13 +83,12 @@ insertRandom(board)
 
 update()
 {
-
-var canvasWidth=Math.min(document.body.clientWidth,document.body.clientHeight)-50;
+var canvasWidth=Math.min(document.body.clientWidth,document.body.clientHeight)-this.baseY;
 this.canvas.width=canvasWidth;
 this.canvas.height=canvasWidth+this.baseY;
-this.tile_width=Math.floor(this.canvas.width/this.board_size);
 this.base_tile_width=this.canvas.width/2;
 this.baseY=this.base_tile_width/2;
+this.tile_width=Math.floor(this.canvas.width/this.board_size);
 this.updateUI();
 this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
 this.context.fillStyle="#333333";
@@ -121,6 +120,7 @@ this.context.fillText(txt,text_pos,this.uiY+this.base_tile_width/8);
 this.resetButton.render();
 this.plusButton.render();
 this.minusButton.render();
+
 }
 
 

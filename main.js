@@ -6,6 +6,7 @@ window.onresize=function(){game.update()}
 document.onkeydown = checkKey;
 game.canvas.onclick=function(e){game.handleClick(e)};
 resetGame();
+game.update();
 };
 
 function resetGame(){
