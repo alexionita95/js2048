@@ -8,6 +8,8 @@ class Game{
 		this.canvas=null;
 		this.gameOver=false;
 		this.resetButton=null;
+		this.baseY=75;
+		this.uiY=0;
 	
 }
 zeros(dimensions) {
@@ -30,6 +32,7 @@ initBoard(board)
 }
 init(){
 this.board_size=4;
+this.baseY=75;
 this.reset();
 }
 reset(){
@@ -41,18 +44,18 @@ this.canvas=null;
 this.gameOver=false;
 this.canvas = document.getElementById("mainCanvas");
 this.context = this.canvas.getContext("2d");
-this.resetButton=new Button(this.canvas.width-200,10,50,30,this.context,"Reset");
-this.plusButton=new Button(this.canvas.width-40,10,30,30,this.context,"+");
-this.minusButton=new Button(this.canvas.width-140,10,30,30,this.context,"-");
+this.resetButton=new Button(0,this.uiY,75,50,this.context,"Reset");
+this.plusButton=new Button(0,this.uiY,50,50,this.context,"+");
+this.minusButton=new Button(0,this.uiY,50,50,this.context,"-");
 this.board=this.insertRandom(this.board);
 this.updateUI();
 this.update();
 }
 updateUI()
 {
-	this.resetButton.x=this.canvas.width-200;
-	this.plusButton.x=this.canvas.width-40;
-	this.minusButton.x=this.canvas.width-140;
+	this.resetButton.x=this.canvas.width-250;
+	this.plusButton.x=this.canvas.width-60;
+	this.minusButton.x=this.canvas.width-170;
 }
 
 insertRandom(board)
@@ -71,36 +74,38 @@ insertRandom(board)
 update()
 {
 this.updateUI();
+this.baseY=75;
 var canvasWidth=Math.min(document.body.clientWidth,document.body.clientHeight)-50;
 this.canvas.width=canvasWidth;
-this.canvas.height=canvasWidth+50;
+this.canvas.height=canvasWidth+this.baseY;
 this.tile_width=Math.floor(this.canvas.width/this.board_size);
-var baseY=50;
 this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
 this.context.fillStyle="#333333";
 this.context.fillRect(0,0,this.canvas.width,this.canvas.height);
-this.context.font =this.getFont(500,30); //"30px Arial";
+this.context.font =this.getFont(600,30); //"30px Arial";
 this.context.fillStyle = "white";
 this.context.textAlign="left"
-this.context.fillText("Score: "+this.score,10, baseY-20); 
+this.context.fillText("Score: "+this.score,10, this.baseY-5); 
 for(var i=0;i<this.board_size; i++)
 {
 	for(var j=0;j<this.board_size; j++)
 	{
-		var tile=new Tile(j*this.tile_width,baseY+i*this.tile_width,this.tile_width,this.tile_width,this.context,this.board[i][j]);
+		var tile=new Tile(j*this.tile_width,this.baseY+i*this.tile_width,this.tile_width,this.tile_width,this.context,this.board[i][j]);
 		tile.render();
 	}
 	
 }
 this.context.fillStyle="#666666";
-this.context.fillRect(this.canvas.width-145,5,140,40);
+this.context.fillRect(this.canvas.width-170,this.uiY,140,50);
 this.context.fillStyle="white";
-this.context.font=this.getFont(500,30);
+this.context.font=this.getFont(600,30);
 this.context.textAlign="left";
 var txt=this.board_size+"x"+this.board_size;
 var text_width = this.context.measureText(txt).width;
-var text_pos=this.canvas.width-75-text_width/2;
-this.context.fillText(txt,text_pos,25);
+var text_pos=this.canvas.width-90-text_width/2;
+this.context.fillText(txt,text_pos,this.uiY+20);
+
+
 this.resetButton.render();
 this.plusButton.render();
 this.minusButton.render();
