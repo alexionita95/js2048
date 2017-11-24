@@ -9,6 +9,7 @@ class Game{
 		this.gameOver=false;
 		this.resetButton=null;
 		this.baseY=75;
+		this.base_tile_width=0;
 		this.uiY=0;
 	
 }
@@ -53,9 +54,15 @@ this.update();
 }
 updateUI()
 {
-	this.resetButton.x=this.canvas.width-250;
-	this.plusButton.x=this.canvas.width-60;
-	this.minusButton.x=this.canvas.width-170;
+	this.resetButton.x=this.canvas.width-2*this.base_tile_width-1;
+	this.plusButton.x=this.canvas.width-this.base_tile_width/4;
+	this.minusButton.x=this.canvas.width-this.base_tile_width;
+	this.resetButton.width=this.base_tile_width;
+	this.resetButton.height=this.base_tile_width/4;
+	this.plusButton.width=this.base_tile_width/4;
+	this.plusButton.height=this.base_tile_width/4;
+	this.minusButton.width=this.base_tile_width/4;
+	this.minusButton.height=this.base_tile_width/4;
 }
 
 insertRandom(board)
@@ -73,16 +80,18 @@ insertRandom(board)
 
 update()
 {
-this.updateUI();
-this.baseY=75;
+
 var canvasWidth=Math.min(document.body.clientWidth,document.body.clientHeight)-50;
 this.canvas.width=canvasWidth;
 this.canvas.height=canvasWidth+this.baseY;
 this.tile_width=Math.floor(this.canvas.width/this.board_size);
+this.base_tile_width=this.canvas.width/4;
+this.baseY=this.base_tile_width/2;
+this.updateUI();
 this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
 this.context.fillStyle="#333333";
 this.context.fillRect(0,0,this.canvas.width,this.canvas.height);
-this.context.font =this.getFont(600,30); //"30px Arial";
+this.context.font =this.getFont(300,15); //"30px Arial";
 this.context.fillStyle = "white";
 this.context.textAlign="left"
 this.context.fillText("Score: "+this.score,10, this.baseY-5); 
@@ -96,14 +105,14 @@ for(var i=0;i<this.board_size; i++)
 	
 }
 this.context.fillStyle="#666666";
-this.context.fillRect(this.canvas.width-170,this.uiY,140,50);
+this.context.fillRect(this.canvas.width-this.base_tile_width,this.uiY,1.5*this.base_tile_width,this.base_tile_width/4);
 this.context.fillStyle="white";
-this.context.font=this.getFont(600,30);
+this.context.font=this.getFont(300,15);
 this.context.textAlign="left";
 var txt=this.board_size+"x"+this.board_size;
 var text_width = this.context.measureText(txt).width;
-var text_pos=this.canvas.width-90-text_width/2;
-this.context.fillText(txt,text_pos,this.uiY+20);
+var text_pos=this.canvas.width-0.75*this.base_tile_width+text_width/4;
+this.context.fillText(txt,text_pos,this.uiY+this.base_tile_width/8);
 
 
 this.resetButton.render();

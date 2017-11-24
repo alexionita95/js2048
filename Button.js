@@ -27,8 +27,8 @@ class Button{
 	}
 	
 	getFont() {
-	var fontBase =50,                 // selected default width for canvas
-    fontSize = 15;                     // default size for font
+	var fontBase =40,                 // selected default width for canvas
+    fontSize = 10;                     // default size for font
     var ratio = fontSize / fontBase;   // calc ratio
     var size = this.width * ratio;   // get font size based on current width
     return (size|0) + 'px Arial'; // set font
