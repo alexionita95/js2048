@@ -10,7 +10,7 @@ class Game{
 		this.resetButton=null;
 		this.baseY=75;
 		this.base_tile_width=0;
-		this.uiY=0;
+		this.uiY=1;
 	
 }
 zeros(dimensions) {
@@ -54,10 +54,10 @@ this.update();
 }
 updateUI()
 {
-	this.resetButton.x=this.canvas.width-2*this.base_tile_width-1;
-	this.plusButton.x=this.canvas.width-this.base_tile_width/4;
+	this.resetButton.x=this.canvas.width-2*this.base_tile_width+1;
+	this.plusButton.x=this.canvas.width-this.base_tile_width/4-1;
 	this.minusButton.x=this.canvas.width-this.base_tile_width;
-	this.resetButton.width=this.base_tile_width;
+	this.resetButton.width=this.base_tile_width-2;
 	this.resetButton.height=this.base_tile_width/4;
 	this.resetButton.fontSize=10;
 	this.plusButton.width=this.base_tile_width/4;
@@ -108,7 +108,7 @@ for(var i=0;i<this.board_size; i++)
 	
 }
 this.context.fillStyle="#666666";
-this.context.fillRect(this.canvas.width-this.base_tile_width,this.uiY,1.5*this.base_tile_width,this.base_tile_width/4);
+this.context.fillRect(this.canvas.width-this.base_tile_width,this.uiY,this.base_tile_width-1,this.base_tile_width/4);
 this.context.fillStyle="white";
 this.context.font=this.getFont(400,25);
 this.context.textAlign="left";
