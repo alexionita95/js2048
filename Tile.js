@@ -39,7 +39,7 @@ getFont() {
 }
 
 render(){
-	var gap=5;
+	var gap=2.5*this.width/100;
 	if(this.value===0)
 	{
 		this.context.fillStyle="#666666";

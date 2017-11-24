@@ -7,6 +7,7 @@ class Game{
 		this.tile_width=0;
 		this.canvas=null;
 		this.gameOver=false;
+		this.resetButton=null;
 	
 }
 zeros(dimensions) {
@@ -29,6 +30,9 @@ initBoard(board)
 }
 init(){
 this.board_size=4;
+this.reset();
+}
+reset(){
 this.board=this.initBoard(this.zeros([this.board_size,this.board_size]));
 this.score=0;
 this.context=null;
@@ -37,9 +41,18 @@ this.canvas=null;
 this.gameOver=false;
 this.canvas = document.getElementById("mainCanvas");
 this.context = this.canvas.getContext("2d");
-
+this.resetButton=new Button(this.canvas.width-200,10,50,30,this.context,"Reset");
+this.plusButton=new Button(this.canvas.width-40,10,30,30,this.context,"+");
+this.minusButton=new Button(this.canvas.width-140,10,30,30,this.context,"-");
 this.board=this.insertRandom(this.board);
+this.updateUI();
 this.update();
+}
+updateUI()
+{
+	this.resetButton.x=this.canvas.width-200;
+	this.plusButton.x=this.canvas.width-40;
+	this.minusButton.x=this.canvas.width-140;
 }
 
 insertRandom(board)
@@ -57,6 +70,7 @@ insertRandom(board)
 
 update()
 {
+this.updateUI();
 var canvasWidth=Math.min(document.body.clientWidth,document.body.clientHeight)-50;
 this.canvas.width=canvasWidth;
 this.canvas.height=canvasWidth+50;
@@ -65,7 +79,7 @@ var baseY=50;
 this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
 this.context.fillStyle="#333333";
 this.context.fillRect(0,0,this.canvas.width,this.canvas.height);
-this.context.font = "30px Arial";
+this.context.font =this.getFont(500,30); //"30px Arial";
 this.context.fillStyle = "white";
 this.context.textAlign="left"
 this.context.fillText("Score: "+this.score,10, baseY-20); 
@@ -78,6 +92,18 @@ for(var i=0;i<this.board_size; i++)
 	}
 	
 }
+this.context.fillStyle="#666666";
+this.context.fillRect(this.canvas.width-145,5,140,40);
+this.context.fillStyle="white";
+this.context.font=this.getFont(500,30);
+this.context.textAlign="left";
+var txt=this.board_size+"x"+this.board_size;
+var text_width = this.context.measureText(txt).width;
+var text_pos=this.canvas.width-75-text_width/2;
+this.context.fillText(txt,text_pos,25);
+this.resetButton.render();
+this.plusButton.render();
+this.minusButton.render();
 }
 
 
@@ -170,7 +196,7 @@ leftBoard=this.internalLeft(leftBoard);
 var rightBoard=this.copyBoard(board);
 rightBoard=this.internalRight(rightBoard);
 var topBoard=this.copyBoard(board);
-topBoard=this.internalRight(topBoard);
+topBoard=this.internalUp(topBoard);
 var downBoard=this.copyBoard(board);
 downBoard=this.internalDown(downBoard);
 if(this.equals(leftBoard,board) && this.equals(rightBoard,board) && this.equals(topBoard,board) && this.equals(downBoard,board))
@@ -220,9 +246,9 @@ canInsert(board)
 }
 
 
-getFont() {
-	var fontBase = 500,                 // selected default width for canvas
-    fontSize = 40;                     // default size for font
+getFont(fontBase=500,fontSize=40) {
+	//var fontBase = 500,                 // selected default width for canvas
+    //fontSize = 40;                     // default size for font
     var ratio = fontSize / fontBase;   // calc ratio
     var size = this.canvas.width * ratio;   // get font size based on current width
     return (size|0) + 'px Arial'; // set font
@@ -279,5 +305,13 @@ moveDown()
 	var oldBoard= this.copyBoard(this.board);
 	this.board=this.internalDown(this.board);
 	this.checkContinue(this.board,oldBoard);
+}
+handleClick(e){
+var rect= this.canvas.getBoundingClientRect();
+var x=e.clientX-rect.left;
+var y=e.clientY-rect.top;
+this.resetButton.onClick(x,y,resetGame);
+this.plusButton.onClick(x,y,increaseBoard);
+this.minusButton.onClick(x,y,decreaseBoard);
 }
 };
