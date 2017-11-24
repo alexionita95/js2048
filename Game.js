@@ -88,7 +88,7 @@ var canvasWidth=Math.min(document.body.clientWidth,document.body.clientHeight)-5
 this.canvas.width=canvasWidth;
 this.canvas.height=canvasWidth+this.baseY;
 this.tile_width=Math.floor(this.canvas.width/this.board_size);
-this.base_tile_width=this.canvas.width/4;
+this.base_tile_width=this.canvas.width/2;
 this.baseY=this.base_tile_width/2;
 this.updateUI();
 this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
@@ -110,11 +110,11 @@ for(var i=0;i<this.board_size; i++)
 this.context.fillStyle="#666666";
 this.context.fillRect(this.canvas.width-this.base_tile_width,this.uiY,1.5*this.base_tile_width,this.base_tile_width/4);
 this.context.fillStyle="white";
-this.context.font=this.getFont(400,20);
+this.context.font=this.getFont(400,25);
 this.context.textAlign="left";
 var txt=this.board_size+"x"+this.board_size;
 var text_width = this.context.measureText(txt).width;
-var text_pos=this.canvas.width-0.75*this.base_tile_width+text_width/4;
+var text_pos=this.canvas.width-this.base_tile_width/2-text_width/2;
 this.context.fillText(txt,text_pos,this.uiY+this.base_tile_width/8);
 
 
