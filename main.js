@@ -13,15 +13,18 @@ game.reset();
 }
 function increaseBoard()
 {
-	if(game.board_size <10)
-	game.board_size++;
-	resetGame();
+	if(game.board_size <9)
+	{
+		game.board_size++;
+		resetGame();
+	}
 }
 function decreaseBoard()
 {
-	if(game.board_size > 3)
+	if(game.board_size > 3){
 	game.board_size--;
 	resetGame();
+	}
 }
 function checkKey(e) {
 

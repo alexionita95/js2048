@@ -59,10 +59,13 @@ updateUI()
 	this.minusButton.x=this.canvas.width-this.base_tile_width;
 	this.resetButton.width=this.base_tile_width;
 	this.resetButton.height=this.base_tile_width/4;
+	this.resetButton.fontSize=10;
 	this.plusButton.width=this.base_tile_width/4;
 	this.plusButton.height=this.base_tile_width/4;
+	this.plusButton.fontSize=30;
 	this.minusButton.width=this.base_tile_width/4;
 	this.minusButton.height=this.base_tile_width/4;
+	this.minusButton.fontSize=30;
 }
 
 insertRandom(board)
@@ -107,7 +110,7 @@ for(var i=0;i<this.board_size; i++)
 this.context.fillStyle="#666666";
 this.context.fillRect(this.canvas.width-this.base_tile_width,this.uiY,1.5*this.base_tile_width,this.base_tile_width/4);
 this.context.fillStyle="white";
-this.context.font=this.getFont(300,15);
+this.context.font=this.getFont(400,20);
 this.context.textAlign="left";
 var txt=this.board_size+"x"+this.board_size;
 var text_width = this.context.measureText(txt).width;

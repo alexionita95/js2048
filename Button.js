@@ -6,6 +6,7 @@ class Button{
 	this.height=height;
 	this.context=context;
 	this.value=value;
+	this.fontSize=10;
 	}
 	render(){
 		this.context.fillStyle="#000000";
@@ -27,8 +28,8 @@ class Button{
 	}
 	
 	getFont() {
-	var fontBase =40,                 // selected default width for canvas
-    fontSize = 10;                     // default size for font
+	var fontBase =50,                 // selected default width for canvas
+    fontSize = this.fontSize;                     // default size for font
     var ratio = fontSize / fontBase;   // calc ratio
     var size = this.width * ratio;   // get font size based on current width
     return (size|0) + 'px Arial'; // set font
